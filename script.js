@@ -1,100 +1,94 @@
-const X_CLASS = 'x'
-const CIRCLE_CLASS = 'circle'
-const WINNING_COMBINATIONS = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
-]
-const cellElements = document.querySelectorAll('[data-cell]')
-const board = document.getElementById('board')
-const winningMessageElement = document.getElementById('winningMessage')
-const restartButton = document.getElementById('restartButton')
-const startButton = document.getElementById('startBtn');
-const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
-let circleTurn
+const cells = document.querySelectorAll(".cell");
+const statusText = document.querySelector("#statusText");
+const restartBtn = document.querySelector("#restartBtn");
 
-startGame()
-startButton.addEventListener('click', displaygame)
-restartButton.addEventListener('click', startGame)
+const winConditions = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+];
 
-function displaygame() {
-    cellElements.forEach(cell => {
-        if (cell.style.display === "none") {
-            cell.style.display = "block";
-        } else {
-            cell.style.display = "none";
-        };
-    });
+let options = ["","","","","","","","","",];
+let currentPlayer = "X";
+let running = false; 
+
+intializedGame();
+
+function intializedGame(){
+    cells.forEach(cell => cell.addEventListener("click", cellClicked));
+    restartBtn.addEventListener("click", restartGame);
+    statusText.textContent = currentPlayer + ' turn';
+    running = true;
 }
 
-function startGame() {
-    circleTurn = false
-    cellElements.forEach(cell => {
-        cell.classList.remove(X_CLASS)
-        cell.classList.remove(CIRCLE_CLASS)
-        cell.removeEventListener('click', handleClick)
-        cell.addEventListener('click', handleClick, { once: true })
-    })
-    setBoardHoverClass()
-    winningMessageElement.classList.remove('show')
+function choosePlayer () {
+    //when game starts make player choose who will go first 
+    
 }
 
-function handleClick(e) {
-  const cell = e.target
-  const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
-  placeMark(cell, currentClass)
-  if (checkWin(currentClass)) {
-    endGame(false)
-  } else if (isDraw()) {
-    endGame(true)
-  } else {
-    swapTurns()
-    setBoardHoverClass()
-  }
+function cellClicked(){
+    const cellIndex = this.getAttribute("cellIndex");
+    if(options[cellIndex] != "" || !running) {
+        return;
+    }
+
+    updateCell(this, cellIndex);
+    checkWinner();
 }
 
-function endGame(draw) {
-  if (draw) {
-    winningMessageTextElement.innerText = 'Draw!'
-  } else {
-    winningMessageTextElement.innerText = `${circleTurn ? "O's" : "X's"} Wins!`
-  }
-  winningMessageElement.classList.add('show')
+function updateCell(cell, index) {
+    options[index] = currentPlayer;
+    cell.textContent = currentPlayer;
+
 }
 
-function isDraw() {
-  return [...cellElements].every(cell => {
-    return cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
-  })
+function changePlayer () {
+    currentPlayer = (currentPlayer == "X") ? "O" : "X";
+    statusText.textContent = currentPlayer + ' turn';
 }
 
-function placeMark(cell, currentClass) {
-  cell.classList.add(currentClass)
+function checkWinner () {
+    let roundWon = false; 
+
+    for (let i = 0; i < winConditions.length; i++) {
+        const condition = winConditions[i];
+        const cellA = options[condition[0]];
+        const cellB = options[condition[1]];
+        const cellC = options[condition[2]];
+
+        if(cellA === "" || cellB === "" || cellC === "") {
+            continue;
+        }
+
+        if (cellA == cellB && cellB == cellC) {
+            roundWon = true; 
+            break;
+        }
+    }
+
+    if (roundWon) {
+        statusText.textContent = currentPlayer + 'wins';
+        running = false;
+    }
+    else if(!options.includes("")) {
+        statusText.textContent = 'Draw!';
+        running = false;
+    }
+    else {
+        changePlayer();
+    }
+
 }
 
-function swapTurns() {
-  circleTurn = !circleTurn
-}
-
-function setBoardHoverClass() {
-  board.classList.remove(X_CLASS)
-  board.classList.remove(CIRCLE_CLASS)
-  if (circleTurn) {
-    board.classList.add(CIRCLE_CLASS)
-  } else {
-    board.classList.add(X_CLASS)
-  }
-}
-
-function checkWin(currentClass) {
-  return WINNING_COMBINATIONS.some(combination => {
-    return combination.every(index => {
-      return cellElements[index].classList.contains(currentClass)
-    })
-  })
+function restartGame () {
+    currentPlayer = "X";
+    options = ["","","","","","","","","",];
+    statusText.textContent = currentPlayer + 'turn';
+    cells.forEach(cell => cell.textContent = "");
+    running = true;
 }
