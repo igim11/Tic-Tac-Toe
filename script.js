@@ -1,6 +1,10 @@
 const cells = document.querySelectorAll(".cell");
 const statusText = document.querySelector("#statusText");
 const restartBtn = document.querySelector("#restartBtn");
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+let currentMove = 0;
+let moveHistory = [];
 
 const winConditions = [
     [0,1,2],
@@ -24,6 +28,25 @@ function intializedGame(){
     restartBtn.addEventListener("click", restartGame);
     statusText.textContent = currentPlayer + ' turn';
     running = true;
+    nextBtn.addEventListener('click', nextMove);
+    prevBtn.addEventListener('click', prevMove);
+    nextBtn.style.display = 'none';
+    prevBtn.style.display = 'none';
+}
+
+function renderNextPrev() {
+    
+    if (currentMove >= moveHistory.length - 1) {
+        nextBtn.disabled = true;
+    } else {
+        nextBtn.disabled = false;
+    }
+
+    if (currentMove <= 0) {
+        prevBtn.disabled = true;
+    } else {
+        prevBtn.disabled = false;
+    }
 }
 
 function choosePlayer () {
@@ -37,8 +60,17 @@ function cellClicked(){
         return;
     }
 
+    saveMove(cellIndex);
     updateCell(this, cellIndex);
+    renderNextPrev();
     checkWinner();
+    
+}
+
+function saveMove(index) {
+    const move = {index, currentPlayer};
+    moveHistory.push(move);
+    currentMove = moveHistory.length - 1;
 }
 
 function updateCell(cell, index) {
@@ -72,12 +104,16 @@ function checkWinner () {
     }
 
     if (roundWon) {
-        statusText.textContent = currentPlayer + 'wins';
+        statusText.textContent = currentPlayer + ' wins';
         running = false;
+        nextBtn.style.display = 'block';
+        prevBtn.style.display = 'block';
     }
     else if(!options.includes("")) {
         statusText.textContent = 'Draw!';
         running = false;
+        nextBtn.style.display = 'block';
+        prevBtn.style.display = 'block';
     }
     else {
         changePlayer();
@@ -91,4 +127,26 @@ function restartGame () {
     statusText.textContent = currentPlayer + 'turn';
     cells.forEach(cell => cell.textContent = "");
     running = true;
+    moveHistory = [];
+    currentMove = 0;
+    intializedGame();
 }
+
+function nextMove () {
+    if (currentMove < moveHistory.length - 1) {
+        currentMove++;
+        const {index, currentPlayer} = moveHistory[currentMove];
+        cells[index].textContent = currentPlayer;
+        renderNextPrev();
+    }
+}
+
+function prevMove () {
+    if (currentMove > 0) {
+        const {index} = moveHistory[currentMove];
+        cells[index].textContent = "";
+        currentMove--;
+        renderNextPrev();
+    }
+}
+
