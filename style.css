@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-color: black;
+}
+
+
 .gameContainer {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-align: center;
@@ -11,6 +20,7 @@
     line-height: 75px;
     font-size: 50px;
     cursor: pointer;
+    color: rgb(145, 78, 240);
 }
 
 #cellContainer {
@@ -18,4 +28,78 @@
     grid-template-columns: repeat(3, auto);
     width: 225px;
     margin:auto;
+    color: rgb(145, 78, 240);
 }
+
+#game-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+#game-control {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#game-control #x-player {
+    background-color:rgb(145, 78, 240) ;
+    border: 5px solid rgb(145, 78, 240);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    margin-right: 15px;
+}
+
+#game-control #o-player {
+    background-color:rgb(145, 78, 240) ;
+    border: 5px solid rgb(145, 78, 240);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+}
+
+#game-status {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#restart {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#restartBtn {
+    padding: 10px;
+    background-color:rgb(145, 78, 240) ;
+    border: 2px solid rgb(145, 78, 240) ;
+    border-radius: 20px;
+}
+
+#history {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#history #nextBtn {
+    margin-right: 15px;
+    padding: 10px;
+    background-color:rgb(145, 78, 240) ;
+    border: 2px solid rgb(145, 78, 240) ;
+    border-radius: 20px;
+}
+
+#history #prevBtn {
+    padding: 10px;
+    background-color:rgb(145, 78, 240) ;
+    border: 2px solid rgb(145, 78, 240) ;
+    border-radius: 20px;
+}
+

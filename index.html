@@ -7,8 +7,25 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Game details -->
+    <div id="game-heading">
+        <h1>Choose player</h1>
+    </div>
+
+    <div id="game-control">
+        <button id="x-player">X</button>
+        <button id="o-player">O</button>
+    </div>
+
+    <div id="game-status">
+        <h2 id="statusText"></h2>
+    </div>
+
+    <!--Game-->
+
     <div class="gameContainer">
         <h1>Tic Tac Toe</h1>
+        <p>by Gill & Migi</p>
         <div id="cellContainer">
             <div cellIndex= "0" class="cell"></div>
             <div cellIndex= "1" class="cell"></div>
@@ -20,12 +37,19 @@
             <div cellIndex= "7" class="cell"></div>
             <div cellIndex= "8" class="cell"></div>
         </div>
-       
     </div>
-    <h2 id="statusText"></h2>
-    <button id="restartBtn">Restart</button>
-    <button id="nextBtn">Next</button>
-    <button id="prevBtn">Prev</button>
+
+    <!--Restart + History-->
+    <div id="restart">
+        <button id="restartBtn">Restart</button>
+    </div>
+
+    <div id="history">
+        <button id="nextBtn">Next</button>
+        <button id="prevBtn">Prev</button>
+    </div>
+
+    <!--JS file-->
     <script src="script.js" defer></script>
 </body>
 </html>
