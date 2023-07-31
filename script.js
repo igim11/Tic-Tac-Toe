@@ -3,6 +3,8 @@ const statusText = document.querySelector("#statusText");
 const restartBtn = document.querySelector("#restartBtn");
 const nextBtn = document.getElementById('nextBtn');
 const prevBtn = document.getElementById('prevBtn');
+const xBtn = document.getElementById('x-player');
+const oBtn = document.getElementById('o-player');
 let currentMove = 0;
 let moveHistory = [];
 
@@ -18,15 +20,35 @@ const winConditions = [
 ];
 
 let options = ["","","","","","","","","",];
-let currentPlayer = "X";
 let running = false; 
 
-intializedGame();
+chooseplayer();
+
+function chooseplayer() {
+    xBtn.addEventListener("click", function() {
+        currentPlayer = "X";
+        statusText.textContent = currentPlayer + ' turn';
+        intializedGame();
+
+    });
+    oBtn.addEventListener("click", function () {
+        currentPlayer = "O";
+        statusText.textContent = currentPlayer + ' turn';
+        intializedGame();
+
+    });
+}
+
+
+function changePlayer () {
+    currentPlayer = (currentPlayer == "X") ? "O" : "X";
+    statusText.textContent = currentPlayer + ' turn';
+}
 
 function intializedGame(){
+    chooseplayer();
     cells.forEach(cell => cell.addEventListener("click", cellClicked));
     restartBtn.addEventListener("click", restartGame);
-    statusText.textContent = currentPlayer + ' turn';
     running = true;
     nextBtn.addEventListener('click', nextMove);
     prevBtn.addEventListener('click', prevMove);
@@ -49,10 +71,6 @@ function renderNextPrev() {
     }
 }
 
-function choosePlayer () {
-    //when game starts make player choose who will go first 
-    
-}
 
 function cellClicked(){
     const cellIndex = this.getAttribute("cellIndex");
@@ -77,11 +95,6 @@ function updateCell(cell, index) {
     options[index] = currentPlayer;
     cell.textContent = currentPlayer;
 
-}
-
-function changePlayer () {
-    currentPlayer = (currentPlayer == "X") ? "O" : "X";
-    statusText.textContent = currentPlayer + ' turn';
 }
 
 function checkWinner () {
@@ -122,14 +135,12 @@ function checkWinner () {
 }
 
 function restartGame () {
-    currentPlayer = "X";
+    statusText.textContent = "";
     options = ["","","","","","","","","",];
-    statusText.textContent = currentPlayer + 'turn';
     cells.forEach(cell => cell.textContent = "");
-    running = true;
+    running = false;
     moveHistory = [];
     currentMove = 0;
-    intializedGame();
 }
 
 function nextMove () {
