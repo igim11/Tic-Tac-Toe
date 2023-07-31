@@ -52,6 +52,11 @@
     width: 50px;
     padding: 10px;
     margin-right: 15px;
+    cursor: pointer;
+}
+
+#x-player:hover {
+    transform: scale(1.1);
 }
 
 #game-control #o-player {
@@ -61,7 +66,13 @@
     height: 50px;
     width: 50px;
     padding: 10px;
+    cursor: pointer;
 }
+
+#o-player:hover {
+    transform: scale(1.1);
+}
+
 
 #game-status {
     display: flex;
@@ -79,7 +90,13 @@
     background-color:rgb(145, 78, 240) ;
     border: 2px solid rgb(145, 78, 240) ;
     border-radius: 20px;
+    cursor: pointer;
 }
+
+#restartBtn:hover {
+    transform: scale(1.1);
+}
+
 
 #history {
     display: flex;
@@ -94,6 +111,11 @@
     background-color:rgb(145, 78, 240) ;
     border: 2px solid rgb(145, 78, 240) ;
     border-radius: 20px;
+    cursor: pointer;
+}
+
+#prevBtn:hover {
+    transform: scale(1.1);
 }
 
 #history #nextBtn {
@@ -101,5 +123,10 @@
     background-color:rgb(145, 78, 240) ;
     border: 2px solid rgb(145, 78, 240) ;
     border-radius: 20px;
+    cursor: pointer;
+}
+
+#nextBtn:hover {
+    transform: scale(1.1);
 }
 
