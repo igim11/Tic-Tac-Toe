@@ -58,7 +58,6 @@
 #x-player:hover {
     transform: scale(1.1);
 }
-
 #game-control #o-player {
     background-color:rgb(145, 78, 240) ;
     border: 5px solid rgb(145, 78, 240);
@@ -78,6 +77,11 @@
     display: flex;
     justify-content: center;
     text-align: center;
+    cursor: pointer;
+}
+
+#restartBtn:hover {
+    transform: scale(1.1);
 }
 
 #restart {
@@ -100,10 +104,17 @@
 
 #history {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: center;
     text-align: center;
     margin-top: 20px;
+    
 }
+
+#prevBtn:hover {
+    transform: scale(1.1);
+}
+
 
 #history #prevBtn {
     margin-right: 15px;
@@ -129,4 +140,9 @@
 #nextBtn:hover {
     transform: scale(1.1);
 }
+
+#nextBtn:hover {
+    transform: scale(1.1);
+}
+
 

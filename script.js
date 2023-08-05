@@ -25,6 +25,8 @@ let running = false;
 chooseplayer();
 
 function chooseplayer() {
+    nextBtn.style.display = 'none';
+    prevBtn.style.display = 'none';
     xBtn.addEventListener("click", function() {
         currentPlayer = "X";
         statusText.textContent = currentPlayer + ' turn';
@@ -136,6 +138,8 @@ function checkWinner () {
 
 function restartGame () {
     statusText.textContent = "";
+    nextBtn.style.display = 'none';
+    prevBtn.style.display = 'none';
     options = ["","","","","","","","","",];
     cells.forEach(cell => cell.textContent = "");
     running = false;
